@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Hello = props => {
+const Hello = ({ name, age }) => {
+  const bornYear = () => new Date().getFullYear() - age;
+
   return (
     <div>
       <p>
-        Hello {props.name}, you are {props.age} years old.
+        Hello {name}, you are {age} years old.
       </p>
+      <p>So you were probably born {bornYear()}</p>
     </div>
   );
 };
@@ -14,14 +17,14 @@ const Hello = props => {
 const App = () => {
   const now = new Date();
   const name = 'Fredrik';
-  const age = 46;
+  const age = 45;
   console.log('Hello from komponentti');
   return (
     <div>
       <h1>Greetings</h1>
-      <Hello name="Liisa" age={45 - 1} />
-      <Hello name="Linda" age={17} />
-      <Hello name="Iris" age={16} />
+      <Hello name="Liisa" age={44} />
+      <Hello name="Linda" age={16} />
+      <Hello name="Iris" age={15} />
       <Hello name={name} age={age} />
     </div>
   );
