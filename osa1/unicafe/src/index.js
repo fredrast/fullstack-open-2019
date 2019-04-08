@@ -24,35 +24,51 @@ const App = () => {
     <button onClick={handleClick}>{text}</button>
   );
 
-  const Statistics = ({ good, neutral, bad }) => {
-    const feedbackAverage = ({ good, neutral, bad }) => {
-      const feedbackCount = good + neutral + bad;
-      if (feedbackCount > 0) {
-        return (good - bad) / feedbackCount;
-      } else {
-        return 0;
-      }
-    };
+  const feedbackAverage = ({ good, neutral, bad }) => {
+    const feedbackCount = good + neutral + bad;
+    if (feedbackCount > 0) {
+      return (good - bad) / feedbackCount;
+    } else {
+      return 0;
+    }
+  };
 
-    const positiveShare = ({ good, neutral, bad }) => {
-      const feedbackCount = good + neutral + bad;
-      if (feedbackCount > 0) {
-        return ((good / feedbackCount) * 100).toFixed(0) + ' %';
-      } else {
-        return 0 + ' %';
-      }
-    };
+  const positiveShare = ({ good, neutral, bad }) => {
+    const feedbackCount = good + neutral + bad;
+    if (feedbackCount > 0) {
+      return ((good / feedbackCount) * 100).toFixed(0) + ' %';
+    } else {
+      return 0 + ' %';
+    }
+  };
+
+  const Statistic = ({ text, value }) => {
+    return (
+      <p>
+        {' '}
+        {text}': '{value}
+      </p>
+    );
+  };
+
+  const Statistics = ({ good, neutral, bad }) => {
     const feedbackCount = good + neutral + bad;
     if (feedbackCount > 0) {
       return (
         <div>
           <h1>statistiikka</h1>
-          <p>hyvä {good}</p>
-          <p>neutraali {neutral}</p>
-          <p>huono {bad}</p>
-          <p>yhteensä {good + neutral + bad}</p>
-          <p>keskiarvo {feedbackAverage({ good, neutral, bad })}</p>
-          <p>positiivisia {positiveShare({ good, neutral, bad })}</p>
+          <Statistic text="hyvä" value={good} />
+          <Statistic text="neutraali" value={neutral} />
+          <Statistic text="huono" value={bad} />
+          <Statistic text="yhteensä" value={good + neutral + bad} />
+          <Statistic
+            text="keskiarvo"
+            value={feedbackAverage({ good, neutral, bad })}
+          />
+          <Statistic
+            text="positiivisia"
+            value={positiveShare({ good, neutral, bad })}
+          />
         </div>
       );
     } else {
