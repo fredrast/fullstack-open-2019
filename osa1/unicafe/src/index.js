@@ -24,22 +24,39 @@ const App = () => {
     <button onClick={handleClick}>{text}</button>
   );
 
-  const feedbackAverage = args => {
-    console.log('args: ', args);
-    const feedbackCount = args.good + args.neutral + args.bad;
-    if (feedbackCount > 0) {
-      return (args.good - args.bad) / feedbackCount;
-    } else {
-      return 0;
-    }
-  };
+  const Statistics = ({ good, neutral, bad }) => {
+    const feedbackAverage = ({ good, neutral, bad }) => {
+      const feedbackCount = good + neutral + bad;
+      if (feedbackCount > 0) {
+        return (good - bad) / feedbackCount;
+      } else {
+        return 0;
+      }
+    };
 
-  const positiveShare = args => {
-    const feedbackCount = args.good + args.neutral + args.bad;
+    const positiveShare = ({ good, neutral, bad }) => {
+      const feedbackCount = good + neutral + bad;
+      if (feedbackCount > 0) {
+        return ((good / feedbackCount) * 100).toFixed(0) + ' %';
+      } else {
+        return 0 + ' %';
+      }
+    };
+    const feedbackCount = good + neutral + bad;
     if (feedbackCount > 0) {
-      return ((args.good / feedbackCount) * 100).toFixed(0) + ' %';
+      return (
+        <div>
+          <h1>statistiikka</h1>
+          <p>hyvä {good}</p>
+          <p>neutraali {neutral}</p>
+          <p>huono {bad}</p>
+          <p>yhteensä {good + neutral + bad}</p>
+          <p>keskiarvo {feedbackAverage({ good, neutral, bad })}</p>
+          <p>positiivisia {positiveShare({ good, neutral, bad })}</p>
+        </div>
+      );
     } else {
-      return 0 + ' %';
+      return <p>Ei yhtään palautetta annettu</p>;
     }
   };
 
@@ -49,13 +66,7 @@ const App = () => {
       <Button handleClick={handleGoodClick} text="hyvä" />
       <Button handleClick={handleNeutralClick} text="neutraali" />
       <Button handleClick={handleBadClick} text="huono" />
-      <h1>statistiikka</h1>
-      <p>hyvä {good}</p>
-      <p>neutraali {neutral}</p>
-      <p>huono {bad}</p>
-      <p>yhteensä {good + neutral + bad}</p>
-      <p>keskiarvo {feedbackAverage({ good, neutral, bad })}</p>
-      <p>positiivisia {positiveShare({ good, neutral, bad })}</p>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 };
