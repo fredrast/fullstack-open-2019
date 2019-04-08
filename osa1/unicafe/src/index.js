@@ -44,10 +44,10 @@ const App = () => {
 
   const Statistic = ({ text, value }) => {
     return (
-      <p>
-        {' '}
-        {text}': '{value}
-      </p>
+      <tr>
+        <td>{text}</td>
+        <td>{value}</td>
+      </tr>
     );
   };
 
@@ -57,18 +57,22 @@ const App = () => {
       return (
         <div>
           <h1>statistiikka</h1>
-          <Statistic text="hyvä" value={good} />
-          <Statistic text="neutraali" value={neutral} />
-          <Statistic text="huono" value={bad} />
-          <Statistic text="yhteensä" value={good + neutral + bad} />
-          <Statistic
-            text="keskiarvo"
-            value={feedbackAverage({ good, neutral, bad })}
-          />
-          <Statistic
-            text="positiivisia"
-            value={positiveShare({ good, neutral, bad })}
-          />
+          <table>
+            <tbody>
+              <Statistic text="hyvä" value={good} />
+              <Statistic text="neutraali" value={neutral} />
+              <Statistic text="huono" value={bad} />
+              <Statistic text="yhteensä" value={good + neutral + bad} />
+              <Statistic
+                text="keskiarvo"
+                value={feedbackAverage({ good, neutral, bad })}
+              />
+              <Statistic
+                text="positiivisia"
+                value={positiveShare({ good, neutral, bad })}
+              />
+            </tbody>
+          </table>
         </div>
       );
     } else {
