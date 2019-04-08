@@ -20,7 +20,17 @@ const App = props => {
     setSelected(Math.trunc(Math.random() * 6));
   };
 
-  const AnecdoteWithHighestAmountOfVotes = () => {
+  const ShowAnecdoteWithMostVotes = () => {
+    var highestAmountOfVotes = votes[0];
+    var anecdoteWithMostVotes = 0;
+
+    for (var i = 1; i < votes.length; i++) {
+      if (votes[i] > highestAmountOfVotes) {
+        anecdoteWithMostVotes = i;
+        highestAmountOfVotes = votes[i];
+      }
+    }
+
     if (highestAmountOfVotes > 0) {
       return (
         <div>
@@ -33,15 +43,6 @@ const App = props => {
       return '';
     }
   };
-  var highestAmountOfVotes = votes[0];
-  var anecdoteWithMostVotes = 0;
-
-  for (var i = 1; i < votes.length; i++) {
-    if (votes[i] > highestAmountOfVotes) {
-      anecdoteWithMostVotes = i;
-      highestAmountOfVotes = votes[i];
-    }
-  }
 
   console.log('selected ', selected);
 
@@ -52,7 +53,7 @@ const App = props => {
       <p>has {votes[selected]} votes</p>
       <Button handleClick={voteOnAnecdote} text="vote" />
       <Button handleClick={showNextAnecdote} text="next anecdote" />
-      <AnecdoteWithHighestAmountOfVotes />
+      <ShowAnecdoteWithMostVotes />
     </div>
   );
 };
