@@ -24,6 +24,25 @@ const App = () => {
     <button onClick={handleClick}>{text}</button>
   );
 
+  const feedbackAverage = args => {
+    console.log('args: ', args);
+    const feedbackCount = args.good + args.neutral + args.bad;
+    if (feedbackCount > 0) {
+      return (args.good - args.bad) / feedbackCount;
+    } else {
+      return 0;
+    }
+  };
+
+  const positiveShare = args => {
+    const feedbackCount = args.good + args.neutral + args.bad;
+    if (feedbackCount > 0) {
+      return ((args.good / feedbackCount) * 100).toFixed(0) + ' %';
+    } else {
+      return 0 + ' %';
+    }
+  };
+
   return (
     <div>
       <h1>anna palautetta</h1>
@@ -34,6 +53,9 @@ const App = () => {
       <p>hyvä {good}</p>
       <p>neutraali {neutral}</p>
       <p>huono {bad}</p>
+      <p>yhteensä {good + neutral + bad}</p>
+      <p>keskiarvo {feedbackAverage({ good, neutral, bad })}</p>
+      <p>positiivisia {positiveShare({ good, neutral, bad })}</p>
     </div>
   );
 };
