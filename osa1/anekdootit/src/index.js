@@ -6,9 +6,9 @@ const App = props => {
   const initVotes = new Array(6).fill(0);
   const [votes, setVotes] = useState(initVotes);
 
-  const showNextAnecdote = () => {
-    setSelected(Math.trunc(Math.random() * 6));
-  };
+  const Button = ({ handleClick, text }) => (
+    <button onClick={handleClick}>{text}</button>
+  );
 
   const voteOnAnecdote = () => {
     const newVotes = [...votes];
@@ -16,18 +16,43 @@ const App = props => {
     setVotes(newVotes);
   };
 
-  const Button = ({ handleClick, text }) => (
-    <button onClick={handleClick}>{text}</button>
-  );
+  const showNextAnecdote = () => {
+    setSelected(Math.trunc(Math.random() * 6));
+  };
+
+  const AnecdoteWithHighestAmountOfVotes = () => {
+    if (highestAmountOfVotes > 0) {
+      return (
+        <div>
+          <h1>Anecdote with most votes</h1>
+          <p>{props.anecdotes[anecdoteWithMostVotes]}</p>
+          <p>has {highestAmountOfVotes} votes</p>
+        </div>
+      );
+    } else {
+      return '';
+    }
+  };
+  var highestAmountOfVotes = votes[0];
+  var anecdoteWithMostVotes = 0;
+
+  for (var i = 1; i < votes.length; i++) {
+    if (votes[i] > highestAmountOfVotes) {
+      anecdoteWithMostVotes = i;
+      highestAmountOfVotes = votes[i];
+    }
+  }
 
   console.log('selected ', selected);
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{props.anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       <Button handleClick={voteOnAnecdote} text="vote" />
       <Button handleClick={showNextAnecdote} text="next anecdote" />
+      <AnecdoteWithHighestAmountOfVotes />
     </div>
   );
 };
