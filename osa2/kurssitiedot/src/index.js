@@ -1,92 +1,49 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-const Course = props => {
-  //
-  const Header = props => {
-    console.log('Rendering Header...');
-    console.log(props);
-    return <h1>{props.name}</h1>;
-  };
-
-  const Part = props => {
-    console.log('Rendering Part...');
-    console.log(props);
-    return (
-      <p>
-        {props.part.name} {props.part.exercises}
-      </p>
-    );
-  };
-
-  const Content = props => {
-    console.log('Rendering Content...');
-    console.log(props);
-
-    return props.parts.map(part => <Part key={part.id} part={part} />);
-  };
-
-  console.log(' Course...');
-  const course = props.course;
-  console.log(course);
-  console.log(course.name);
-  console.log(course.parts);
-
-  return (
-    <div>
-      <Header name={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
-    </div>
-  );
-};
-
-const Total = props => {
-  console.log('Rendering Total...');
-  console.log(props);
-
-  return (
-    <div>
-      <p>
-        yhteensä{' '}
-        {props.parts.reduce(
-          (total, currentValue) => (total += currentValue.exercises),
-          0
-        )}{' '}
-        tehtävää
-      </p>
-    </div>
-  );
-};
+import Courses from './Course.js';
 
 const App = () => {
-  const course = {
-    name: 'Half Stack -sovelluskehitys',
-    parts: [
-      {
-        id: 1,
-        name: 'Reactin perusteet',
-        exercises: 10,
-      },
-      {
-        id: 2,
-        name: 'Tiedonvälitys propseilla',
-        exercises: 7,
-      },
-      {
-        id: 3,
-        name: 'Komponenttien tila',
-        exercises: 14,
-      },
-      {
-        id: 4,
-        name: 'Redux',
-        exercises: 7,
-      },
-    ],
-  };
+  const courses = [
+    {
+      name: 'Half Stack -sovelluskehitys',
+      id: 1,
+      parts: [
+        {
+          name: 'Reactin perusteet',
+          exercises: 10,
+          id: 1,
+        },
+        {
+          name: 'Tiedonvälitys propseilla',
+          exercises: 7,
+          id: 2,
+        },
+        {
+          name: 'Komponenttien tila',
+          exercises: 14,
+          id: 3,
+        },
+      ],
+    },
+    {
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1,
+        },
+        {
+          name: 'Middlewaret',
+          exercises: 7,
+          id: 2,
+        },
+      ],
+    },
+  ];
 
-  return <Course course={course} />;
+  return <Courses courses={courses} />;
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));
