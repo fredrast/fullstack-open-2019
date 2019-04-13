@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+const History = props => {
+  if (props.allClicks.length === 0) {
+    return <div>sovellusta käytetään nappeja painelemalla</div>;
+  }
+
+  return <div>näppäilyhistoria: {props.allClicks.join(' ')}</div>;
+};
+
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
+
 const App = props => {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
@@ -14,18 +26,6 @@ const App = props => {
   const handleRightClick = () => {
     setAll(allClicks.concat('R'));
     setRight(right + 1);
-  };
-
-  const Button = ({ handleClick, text }) => (
-    <button onClick={handleClick}>{text}</button>
-  );
-
-  const History = props => {
-    if (props.allClicks.length === 0) {
-      return <div>sovellusta käytetään nappeja painelemalla</div>;
-    }
-
-    return <div>näppäilyhistoria: {props.allClicks.join(' ')}</div>;
   };
 
   return (

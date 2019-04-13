@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
+
 const App = props => {
   const [selected, setSelected] = useState(0);
   const initVotes = new Array(6).fill(0);
   const [votes, setVotes] = useState(initVotes);
-
-  const Button = ({ handleClick, text }) => (
-    <button onClick={handleClick}>{text}</button>
-  );
 
   const voteOnAnecdote = () => {
     const newVotes = [...votes];
