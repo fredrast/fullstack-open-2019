@@ -45,15 +45,6 @@ const Total = props => {
   console.log('Rendering Total...');
   console.log(props);
 
-  const countTotal = () => {
-    let total = 0;
-    for (let i = 0; i < props.parts.length; i++) {
-      total += props.parts[i].exercises;
-      console.log('Exercise value: ', props.parts.exercises);
-    }
-    return total;
-  };
-
   return (
     <div>
       <p>
