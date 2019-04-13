@@ -56,7 +56,14 @@ const Total = props => {
 
   return (
     <div>
-      <p>yhteensä {countTotal()} tehtävää</p>
+      <p>
+        yhteensä{' '}
+        {props.parts.reduce(
+          (total, currentValue) => (total += currentValue.exercises),
+          0
+        )}{' '}
+        tehtävää
+      </p>
     </div>
   );
 };
