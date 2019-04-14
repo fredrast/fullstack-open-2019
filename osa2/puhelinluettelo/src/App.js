@@ -9,12 +9,30 @@ const App = () => {
 
   const addPerson = event => {
     event.preventDefault();
-    const personObject = {
-      name: newName,
-    };
-    console.log(personObject);
-    setPersons(persons.concat(personObject));
-    setNewName('');
+    console.log('Executing addPerson...');
+    console.log(newName);
+    console.log(persons.indexOf(newName));
+
+    let personFoundInList = false;
+
+    for (let i = 0; i < persons.length; i++) {
+      if (persons[i].name === newName) {
+        personFoundInList = true;
+        break;
+      }
+    }
+
+    if (personFoundInList) {
+      window.alert(`${newName} on jo luettelossa`);
+    } else {
+      const personObject = {
+        name: newName,
+      };
+      console.log(personObject);
+      setPersons(persons.concat(personObject));
+      setNewName('');
+      console.log(persons.indexOf(personObject));
+    }
   };
 
   const handleInputChange = event => {
